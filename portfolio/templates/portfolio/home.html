@@ -1,0 +1,400 @@
+{% extends 'portfolio/base.html' %}
+{% block content %}
+    {% load static %}
+
+
+
+    <section id="sc_personal" class="sec-color-alternate" xmlns="http://www.w3.org/1999/html">
+        <div class="text-center">
+				<div class="col-xl-11 offset-xl-1">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            {% for project in profile %}
+                                <h3 align="left">{{ project.title }}</h3>
+                                <hr style="height:1px;border-width:0;color:gray;background-color:black">
+                                <p align="left">{{ project.summary|safe }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="col-lg-4">
+                            <table align="right"><tr>
+                                <td >
+                                <img src="{% static 'portfolio/portfolio.png' %}" height="400" width="300" align="right">
+                                </td>
+                                </tr>
+                            </table>
+                            <ul align="Left">
+                                <li><b>Address:</b> Toronto, ON, M4Y1H5</li>
+                                <li><b>Email:</b> achinch@gmail.com</li>
+                            </ul>
+                           
+
+<!--                            <table align="right">-->
+<!--                                <tr>-->
+<!--                                    <td align="left">-->
+<!--                                        <a>Address: </a>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                       <a>Toronto,ON,M4Y1H5 </a>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td align="left">-->
+<!--                                        <a>Email:</a>-->
+<!--                                    </td>-->
+<!--                                    <td >-->
+<!--                                       <a>achinch@gmail.com </a>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                            </table>-->
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+
+    </section>
+
+    <section id="tech_stack" class="sec-color">
+         <div class="text-center">
+            <div class="col-xl-11 offset-xl-1">
+                <div class="row">
+                    <div class="col-lg">
+                        </br>
+                        </br>
+                        </br>
+                        <h2 align="left">TECH STACKS</h2>
+                        <hr style="height:1px;border-width:0;color:gray;background-color:black">
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="col-xl-11 offset-xl-1">
+            <div class="row">
+                <div class="card-deck">
+                    {% for tech_stack in techstacks%}
+                    {% if forloop.counter < 7 %}
+                      <div class="card" >
+                        <img class="card-img-top" src="{% static tech_stack.tech_image_name_static %}" alt="Card image cap" height="100" width="300">
+                        <div class="card-body" >
+                          <h6 class="card-title" >{{ tech_stack.tech_summary }}</h6>
+                        </div>
+                          <div class="card-footer" align="bottom">
+<!--                          <a class="open-tech-stack" data-popup-url="{% url 'tech_stack_view' tech_stack.id %}" href="{% url 'tech_stack_view' tech_stack.id %}" class="btn btn-primary" id="details_{{ tech_stack.id }}">Details</a>-->
+                              <a class="btn btn-light" hx-get="{% url 'tech_stack_view' tech_stack.id %}" hx-target="#dialog" align="left">More.....
+                                </a>
+                          </div>
+                      </div>
+                     {% endif %}
+                     {% endfor %}
+                </div>
+            </div>
+             <div class="row">
+                 </br>
+                 </br>
+                 </br>
+                 </br>
+             </div>
+         </div>
+
+        <div class="col-xl-10 offset-xl-1">
+            <div class="row">
+                <div class="card-deck">
+                    {% for tech_stack in techstacks%}
+                    {% if forloop.counter > 6  %}
+                      <div class="card">
+                        <img class="card-img-top" src="{% static tech_stack.tech_image_name_static %}" alt="Card image cap" height="120" width="100">
+                        <div class="card-body">
+                          <h6 class="card-title" align="left">{{ tech_stack.tech_summary }}</h6>
+                        </div>
+                          <div class="card-footer" align="bottom">
+<!--                          <a class="open-tech-stack" data-popup-url="{% url 'tech_stack_view' tech_stack.id %}" href="{% url 'tech_stack_view' tech_stack.id %}" class="btn btn-primary" id="details_{{ tech_stack.id }}">Details</a>-->
+                              <a class="btn btn-light" hx-get="{% url 'tech_stack_view' tech_stack.id %}" hx-target="#dialog" align="left">Learn....
+                                </a>
+                          </div>
+                      </div>
+                     {% endif %}
+                     {% endfor %}
+                </div>
+            </div>
+         </div>
+
+
+    </section>
+
+    <section id="exp_summary" class="sec-color-alternate">
+        <div class="text-center">
+            <div class="col-xl-10 offset-xl-1">
+                <div class="row">
+                    <div class="col-lg">
+                        </br>
+                        </br>
+                        </br>
+                        <h2 align="left">EXPERIENCE</h2>
+                        <hr style="height:1px;border-width:0;color:gray;background-color:black">
+                    </div>
+                </div>
+                 <div class="row">
+
+             </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <div class="col-xl-10 offset-xl-1">
+                    <div class="col-lg" align="left">
+                        {% for project in projects %}
+                        <div class="row">
+                            <div id="project_{{ forloop.counter }}" class="col" align="left">
+                                <h4><a href="#details_{{ forloop.counter }}" data-toggle="collapse">
+                                    {{ project.project_name }}
+                                </a></h4>
+                            </div>
+                            <div class="col">
+                                {% if project.to_date %}
+                                    <h5 class="gray-text" align="right" >{{ project.from_date|date:"M, Y" }} - {{ project.to_date|date:"M, Y" }}</h5>
+                                {% else %}
+                                     <h5 class="gray-text" align="right">{{ project.from_date|date:"M, Y"  }} - Till Date</h5>
+                                {% endif %}
+                            </div>
+                                <h5 class="gray-text">{{ project.role }}</h5>
+                            </br>
+                            </br>
+                            <div class="collapse" id="details_{{ forloop.counter }}">
+                                <h5 class="h5_color">Summary</h5>
+                                <p class="m-4 pb-4">{{ project.description|safe }}</p>
+                                <h5 class="h5_color">Responsibilities</h5>
+                                </br>
+<!--                                <p class="m-4 pb-4"></p>-->
+                                {{ project.responsibilities|safe }}
+                                </br>
+                            </div>
+                        </div>
+                        {% endfor %}
+                         <div class="row">
+                             </br>
+                             </br>
+                             </br>
+                             </br>
+                         </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="exp_keyskills" class="sec-color">
+
+        <div class="col-xl-10 offset-xl-1">
+            <div class="row">
+                    <div class="col-sm" align="left">
+                        </br>
+                        </br>
+                        </br>
+                        <h2 align="left">KEY SKILLS</h2>
+                        <hr style="height:1px;border-width:0;color:gray;background-color:black">
+                            <div class="col-lg" align="left">
+                                {% for i_skill in skills %}
+                                <div class="row">
+                                     <p>{{ i_skill.skill|safe }}</p>
+                                </div>
+                                {% endfor %}
+                                 <div class="row">
+                             </br>
+                             </br>
+                             </br>
+                             </br>
+                         </div>
+                            </div>
+                        <div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm" align="left">
+                         </br>
+                        </br>
+                        </br>
+                        <h2 align="left">TOOLS</h2>
+                        <hr style="height:1px;border-width:0;color:gray;background-color:black">
+                            <div class="col-lg" align="left">
+                                {% for i_tools in tools %}
+                                <div class="row">
+                                     <p>{{ i_tools.tool|safe }}</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        <div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm" align="left">
+                         </br>
+                        </br>
+                        </br>
+                        <h2 align="left">ENVIRONMENT</h2>
+                        <hr style="height:1px;border-width:0;color:gray;background-color:black">
+                            <div class="col-lg" align="left">
+                                {% for i_os in os_sys %}
+                                <div class="row">
+                                     <p>{{ i_os.os_system|safe }}</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                     <div>
+            </div>
+        </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="personal_skills" class="sec-color-alternate">
+        <div class="col-xl-10 offset-xl-1">
+            <div class="row">
+                <div class="col-lg">
+                    </br>
+                        </br>
+                    </br>
+                    <h2 align="left">PERSONAL SKILLS</h2>
+                    <hr style="height:1px;border-width:0;color:gray;background-color:black">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <div class="col-xl-10 offset-xl-1">
+                    <div class="col-lg" align="left">
+                        {% for p_skill in personal_skills %}
+                        <div class="row">
+                            <p align="left">{{ p_skill.personal_skills|safe }}</p>
+                        </div>
+                        {%endfor%}
+                         <div class="row">
+                             </br>
+                             </br>
+                             </br>
+                             </br>
+                         </div>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="domain_skills"  class="sec-color">
+        <div class="col-xl-10 offset-xl-1">
+            <div class="row">
+                <div class="col-lg">
+                     </br>
+                    </br>
+                    </br>
+                    <h2 align="left">DOMAIN KNOWLEDGE</h2>
+                    <hr style="height:1px;border-width:0;color:gray;background-color:black">
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <div class="col-xl-10 offset-xl-1">
+                    <div class="col-lg" align="left">
+                        {% for k_skills in domain_skills %}
+                        <div class="row">
+                            <p align="left">{{ k_skills.domains|safe }}</p>
+                        </div>
+                        {%endfor%}
+                        <div class="row">
+                             </br>
+                             </br>
+                             </br>
+                             </br>
+                         </div>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="python_skills" class="sec-color-alternate">
+        <div class="col-xl-10 offset-xl-1">
+            <div class="row">
+                <div class="col-lg">
+                     </br>
+                    </br>
+                    </br>
+                    <h2 align="left">PYTHON EXPOSURE</h2>
+                    <hr style="height:1px;border-width:0;color:gray;background-color:black">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        <div class="text-center">
+            <div class="col-xl-10">
+                    <div class="col-lg" align="left">
+                        {% for p_skills in python_skills %}
+                        <ul class="offset-xl-1">
+                            <li>
+                                <h4>{{ p_skills.python_header }}</h4>
+                                <p>{{ p_skills.python_sk }}</p>
+                            </li>
+                        </ul>
+                        {%endfor%}
+                    </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+             </br>
+             </br>
+             </br>
+             </br>
+         </div>
+    </section>
+
+    <section id="education" class="sec-color">
+        <div class="col-xl-10 offset-xl-1" >
+            <div class="row">
+                <div class="col-lg">
+                     </br>
+                    </br>
+                    </br>
+                    <h2 align="left">EDUCATION</h2>
+                    <hr style="height:1px;border-width:0;color:gray;background-color:black">
+                </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="text-center" >
+                <div class="col-xl-10">
+                        <div class="col-lg" align="left">
+                            {% for education in educations %}
+                            <ul class="offset-xl-1">
+                                <li>
+                                    <p><b>{{ education.university }}</b> - <i>{{ education.degree }}</i></p>
+                                    <p>{{ education.year_from|date:"Y" }} - {{ education.year_to|date:"Y" }}</p>
+                                </li>
+                            </ul>
+                            {%endfor%}
+                        </div>
+                </div>
+
+            </div>
+            </div>
+             <div class="row">
+             </br>
+             </br>
+             </br>
+             </br>
+         </div>
+    </section>
+
+
+    <div id="modal" class="modal fade" tabindex="-1">
+      <div id="dialog" class="modal-dialog" hx-target="this">
+        <!--INJECT HTML CONTENT HERE-->
+      </div>
+   </div>
+
+
+<script>
+
+</script>
+
+{% endblock %}
