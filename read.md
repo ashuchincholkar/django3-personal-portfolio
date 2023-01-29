@@ -146,3 +146,96 @@ REVERT MIGRATION
    -
 
          > NAVIGATE TO MIGARTION DIR IN PROJECT AND DELETE
+
+PUBLISH SITE IN PYTHON ANYWHERE
+-  
+         > navigate to PythonAnywhere
+         > launch bash window
+         > copy git repo url and run command "git clone <repo name>"
+         > $cd django3-personal-portfolio                                                                                                                       
+            ~/django3-personal-portfolio (main)$
+   ***CREATE VENV****
+   -
+         > mkvirtualenv --python=/usr/bin/pyhton3.8 portfoliovenv
+         > it will create and activate venv
+         > (portfoliovenv) 02:31 ~/django3-personal-portfolio (main)$
+         > to deactivate venv > ht command deactivate
+         > if you first time start bash and move to venv : workon <venvname>
+   ***TO LIST VENV***
+   -  
+         > cd .virtualenvs/
+         > ls
+   ***INSTALL NEW: django and pillow***
+   -
+         > pip install django pillow
+
+   ***PYTHON ANYWHERE***
+   -
+         > navigate to new window PythoAnywhere
+         > click on Web buttong on top menu
+         > add new web app > next
+         > select python web framework - manual configuration
+         > select python version
+         > scroll down at Virtualenv section and provide your virtual env path ( providing name will automatically select env path)
+         > scroll up "code" section and update "source code"  and "Working Dir" path of your project cloned.
+         > copy WSGI config file path, click on it.
+         > open WSGI file and 
+         > scroll down until you see # +++++++++++ DJANGO +++++++++++
+         > keep that section and delete all other
+         > then edit path: to actual project cloned path
+         > os.environ['DJANGO_SETTINGS_MODULE'] should be updated to -> personal_portfolio.settings
+         > for eg. 
+               ── personal_portfolio
+            │   ├── __init__.py
+            │   ├── __pycache__
+            │   │   ├── __init__.cpython-38.pyc
+            │   │   ├── settings.cpython-38.pyc
+            │   │   ├── urls.cpython-38.pyc
+            │   │   └── wsgi.cpython-38.pyc
+            │   ├── asgi.py
+            │   ├── settings.py
+            │   ├── urls.py
+            │   └── wsgi.py
+         > save
+         > go back to pythonanywhere
+         > click on web
+         > clikc on reload 
+
+   ***RESOLVE ISSUE****
+   -
+       1.ALLOWED HOST: add url in setting.py ALLOWED_HOST = ["achincholkar.pythonanywhere.com"]
+       2. go to settings.py file and set DEBUG=False
+       3. to show all our static file : udpate STAIC_ROOT = os.path.join(BASE_DIR, "static")
+       4. go to BASH console or project dir where manage.py is and run command "python manage.py collectstatic" : it will collect all and put all static under there
+
+   ***UPDATE STATIC FILE PATH***
+   -
+      1. click on web
+      2. scroll down to static files section
+      3. under URL /static/ 
+      4. for DIR go to BASH - cd static and pwd
+
+   ***gitignore***
+   -
+      1. in pythonanywhere console
+      2. > nano .gitingore
+         ### Django ###
+         *.log
+         *.pot
+         *.pyc
+         __pycache__/
+         /static/
+      3. ctrl+x
+      4. git add .gitignore in pythonanywhere console
+      5. (portfoliovenv) 18:11 ~/django3-personal-portfolio (main)$ git config --global user.email "ashish_chincholkar@hotmail.com"
+         (portfoliovenv) 18:11 ~/django3-personal-portfolio (main)$ git config --global user.name "Ashish"
+      6. git rm -r --cached .
+      7. git add .
+      8. step 6 and 7 will remove pyc file
+      6. git commit -m "added gitignore"
+
+   ***SOMETIME PYTHONANYWHERE Linux PUSH Issue****
+   -
+      1. git remote -v
+
+         git remote set-url git@github.com:ashuchincholkar/django3-personal-portfolio.git

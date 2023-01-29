@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-hlb6pn7m_e-op8_&5_c@6c3b%mvmoc05so%i=!87d$7a8*$3cv"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["achincholkar.pythonanywhere.com"]
 
@@ -125,3 +125,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
+
+try:
+    from .local_settings import *
+except ImportError:
+    print("local settings are not imported")
